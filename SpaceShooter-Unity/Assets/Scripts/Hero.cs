@@ -44,9 +44,12 @@ public class Hero : MonoBehaviour
     public float rollMult = -45;
     public float pitchMult = 30;
 
-
-
     [Space(10)]
+
+    [Header("Projectile Settings")]
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 40;
+
 
     private GameObject lastTriggerGo; //reference to the last triggering game object
    
@@ -110,6 +113,14 @@ public class Hero : MonoBehaviour
         //Rotate the ship to make it feel more dynamic
         transform.rotation = Quaternion.Euler(yAxis * pitchMult, xAxis * rollMult, 0);
 
+
+        //Check for spacebar (fire)
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            FireProjectile();
+        }
+
+
     }//end Update()
 
 
@@ -138,5 +149,17 @@ public class Hero : MonoBehaviour
 
 
     }//end OnTriggerEnter()
+
+
+    void FireProjectile()
+    {
+        GameObject projGo = Instantiate<GameObject>(projectilePrefab);
+        projGo.transform.position = transform.position;
+        Rigidbody rb = projGo.GetComponent<Rigidbody>();
+        rb.velocity = Vector3.up * projectileSpeed;
+
+
+    }
+
 
 }

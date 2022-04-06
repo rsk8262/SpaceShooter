@@ -434,7 +434,8 @@ MonoBehaviour:
   recordHighScore: 1
   defaultHighScore: 1000
   defaultsLives: 3
-  resetLostLevel: 0
+  resetLostLevel: 1
+  gameRestartDelay: 2
   defaultEndMessage: Game Over
   looseMessage: You Loose
   winMessage: You Win
@@ -961,6 +962,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6650417068716629933, guid: a4c6588e02bf0e346b6784d1092bb7af, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 5868928439245646255, guid: fd5dc308d1b914349bb8766249f10df1, type: 3}
     - target: {fileID: 6650417068716629939, guid: a4c6588e02bf0e346b6784d1092bb7af, type: 3}
       propertyPath: m_Name
       value: PlayerShip
@@ -1068,8 +1073,8 @@ MonoBehaviour:
   - {fileID: 777786193082681700, guid: 574dffd88f232b44c826e1d9f6ef973c, type: 3}
   - {fileID: 777786193082681700, guid: d739ff485fe7a4a4db08526242c8eced, type: 3}
   - {fileID: 777786193082681700, guid: 35745d0ccf90d0b4d904665547f2b36a, type: 3}
-  enemySpawnPerSecond: 0
-  enemyDefaultPadding: 0
+  enemySpawnPerSecond: 2
+  enemyDefaultPadding: 2
 --- !u!114 &1998847785
 MonoBehaviour:
   m_ObjectHideFlags: 0
