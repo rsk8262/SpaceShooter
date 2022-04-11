@@ -40,7 +40,40 @@ public class ObjectPool : MonoBehaviour
     void Start()
     {
         
+        for (int i = 0; i < poolStartSize; i++)
+        {
+            GameObject projectileGO = Instantiate(projectilePrefab);
+            projectiles.Enqueue(projectileGO); //add to queue   
+            projectileGO.SetActive(false); //disabled in scene
+
+        }
+
+
     }
+
+
+    public GameObject GetObject()
+    {
+        if (projectiles.Count > 0)
+        {
+            GameObject gObject = projectiles.Dequeue();
+            gObject.SetActive(true);
+            return gObject;
+        }
+        else
+        {
+            Debug.LogWarning("Out of Objects, reloading...");
+            return null;
+        }
+    }
+
+
+    public void ReturnObject(GameObject gObject)
+    {
+        projectiles.Enqueue(gObject);
+        gObject.SetActive(false);
+    }
+
 
     // Update is called once per frame
     void Update()

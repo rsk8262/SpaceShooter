@@ -21,7 +21,9 @@ public class Projectile : MonoBehaviour
     {
         if (bndCheck.offUp)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            gameObject.SetActive(false);
+            bndCheck.offUp = false; //reset bounds
         }
 
     }

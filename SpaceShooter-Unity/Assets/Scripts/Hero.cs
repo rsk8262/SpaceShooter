@@ -3,7 +3,7 @@
  * Date Created: April 5, 2022
  * 
  * Last Edited by: 
- * Last Edited: April 5, 2022
+ * Last Edited: April 11, 2022
  * 
  * Description: Hero ship controller
 ****/
@@ -38,6 +38,7 @@ public class Hero : MonoBehaviour
     #endregion
 
     GameManager gm; //reference to game manager
+    ObjectPool pool; 
 
     [Header("Ship Movement")]
     public float speed = 10;
@@ -47,9 +48,10 @@ public class Hero : MonoBehaviour
     [Space(10)]
 
     [Header("Projectile Settings")]
-    public GameObject projectilePrefab;
+    //public GameObject projectilePrefab;
     public float projectileSpeed = 40;
-
+    public AudioClip projectileSound; //sound clip of projectile
+    private AudioSource audioSource; //audio source component
 
     private GameObject lastTriggerGo; //reference to the last triggering game object
    
@@ -90,6 +92,8 @@ public class Hero : MonoBehaviour
     private void Start()
     {
         gm = GameManager.GM; //find the game manager
+        pool = ObjectPool.POOL; //find the game manager
+        audioSource = GetComponent<AudioSource>();
     }//end Start()
 
 
@@ -117,7 +121,8 @@ public class Hero : MonoBehaviour
         //Check for spacebar (fire)
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            FireProjectile();
+            FireProjectile(); //call tge FireProjectile method
+            
         }
 
 
@@ -153,11 +158,21 @@ public class Hero : MonoBehaviour
 
     void FireProjectile()
     {
-        GameObject projGo = Instantiate<GameObject>(projectilePrefab);
-        projGo.transform.position = transform.position;
-        Rigidbody rb = projGo.GetComponent<Rigidbody>();
-        rb.velocity = Vector3.up * projectileSpeed;
+        //GameObject projGo = Instantiate<GameObject>(projectilePrefab);
+        GameObject projectile = pool.GetObject();
 
+        if (projectile != null)
+        {
+            if (audioSource != null)
+            {
+                audioSource.PlayOneShot(projectileSound);
+            }
+            projectile.transform.position = transform.position;
+            Rigidbody rb = projectile.GetComponent<Rigidbody>();
+            rb.velocity = Vector3.up * projectileSpeed;
+        }
+
+        
 
     }
 
